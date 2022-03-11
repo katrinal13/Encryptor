@@ -111,28 +111,39 @@ public class Encryptor {
      * (e.g. a method to decrypt each section of the decrypted message,
      * similar to how encryptBlock was used)
      */
-    public String decryptMessage(String encryptedMessage) {
+    public String decryptMessage(String encryptedMessage)
+    {
         String decryptMessage = "";
-        for (int i = 0; i < encryptedMessage.length(); i += (numRows * numCols)) {
+        for (int i = 0; i < encryptedMessage.length(); i += (numRows * numCols))
+        {
             String encryptPart = encryptedMessage.substring(i, i + (numRows * numCols));
             String[][] decryptBlock = new String[numRows][numCols];
             int j = 0;
-            for (int col = 0; col < decryptBlock[0].length; col++) {
-                for (int row = 0; row < decryptBlock.length; row++) {
+            for (int col = 0; col < decryptBlock[0].length; col++)
+            {
+                for (int row = 0; row < decryptBlock.length; row++)
+                {
                     decryptBlock[row][col] = encryptPart.substring(j, j + 1);
                     j++;
                 }
             }
 
-            for (int row = 0; row < decryptBlock.length; row++) {
-                for (int col = 0; col < decryptBlock[0].length; col++) {
-                    if (decryptBlock[row][col].equals("A")) {
-                        if (col + 1 < decryptBlock[0].length) {
-                            if (!decryptBlock[row][col + 1].equals("A")) {
+            for (int row = 0; row < decryptBlock.length; row++)
+            {
+                for (int col = 0; col < decryptBlock[0].length; col++)
+                {
+                    if (decryptBlock[row][col].equals("A"))
+                    {
+                        if (col + 1 < decryptBlock[0].length)
+                        {
+                            if (!decryptBlock[row][col + 1].equals("A"))
+                            {
                                 decryptMessage += decryptBlock[row][col];
                             }
                         }
-                    } else {
+                    }
+                    else
+                    {
                         decryptMessage += decryptBlock[row][col];
                     }
                 }
