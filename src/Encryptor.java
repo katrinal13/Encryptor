@@ -1,5 +1,3 @@
-import java.io.*;
-
 public class Encryptor {
     /**
      * A two-dimensional array of single-character strings, instantiated in the constructor
@@ -38,13 +36,19 @@ public class Encryptor {
      *            if str.length() < numRows * numCols, "A" in each unfilled cell
      *            if str.length() > numRows * numCols, trailing characters are ignored
      */
-    public void fillBlock(String str) {
+    public void fillBlock(String str)
+    {
         int k = 0;
-        for (int row = 0; row < letterBlock.length; row++) {
-            for (int col = 0; col < letterBlock[0].length; col++) {
-                if (k > str.length() - 1) {
+        for (int row = 0; row < numRows; row++)
+        {
+            for (int col = 0; col < numCols; col++)
+            {
+                if (k > str.length() - 1)
+                {
                     letterBlock[row][col] = "A";
-                } else {
+                }
+                else
+                {
                     letterBlock[row][col] = str.substring(k, k + 1);
                     k++;
                 }
@@ -59,10 +63,13 @@ public class Encryptor {
      *
      * @return the encrypted string from letterBlock
      */
-    public String encryptBlock() {
+    public String encryptBlock()
+    {
         String encryptBlock = "";
-        for (int col = 0; col < letterBlock[0].length; col++) {
-            for (int row = 0; row < letterBlock.length; row++) {
+        for (int col = 0; col < letterBlock[0].length; col++)
+        {
+            for (int row = 0; row < letterBlock.length; row++)
+            {
                 encryptBlock += letterBlock[row][col];
             }
         }
@@ -75,13 +82,17 @@ public class Encryptor {
      * @param message the string to be encrypted
      * @return the encrypted message; if message is the empty string, returns the empty string
      */
-    public String encryptMessage(String message) {
+    public String encryptMessage(String message)
+    {
         String encryptMessage = "";
-        int length = message.length();
-        for (int i = 0; i < message.length(); i += (numRows * numCols)) {
-            if (i + (numRows * numCols) > message.length()) {
+        for (int i = 0; i < message.length(); i += (numRows * numCols))
+        {
+            if (i + (numRows * numCols) > message.length())
+            {
                 fillBlock(message.substring(i, message.length()));
-            } else {
+            }
+            else
+            {
                 fillBlock(message.substring(i, i + (numRows * numCols)));
             }
             encryptMessage += encryptBlock();
@@ -97,7 +108,7 @@ public class Encryptor {
      * NOTE! When you are decrypting an encrypted message,
      * be sure that you have initialized your Encryptor object
      * with the same row/column used to encrypted the message! (i.e.
-     * the “encryption key” that is necessary for successful decryption)
+     * the ?encryption key? that is necessary for successful decryption)
      * This is outlined in the precondition below.
      * <p>
      * Precondition: the Encryptor object being used for decryption has been
@@ -114,42 +125,46 @@ public class Encryptor {
     public String decryptMessage(String encryptedMessage)
     {
         String decryptMessage = "";
+        String decrypted = "";
         for (int i = 0; i < encryptedMessage.length(); i += (numRows * numCols))
         {
             String encryptPart = encryptedMessage.substring(i, i + (numRows * numCols));
             String[][] decryptBlock = new String[numRows][numCols];
             int j = 0;
-            for (int col = 0; col < decryptBlock[0].length; col++)
+            for (int col = 0; col < numCols; col++)
             {
-                for (int row = 0; row < decryptBlock.length; row++)
+                for (int row = 0; row < numRows; row++)
                 {
                     decryptBlock[row][col] = encryptPart.substring(j, j + 1);
                     j++;
                 }
             }
 
-            for (int row = 0; row < decryptBlock.length; row++)
+            for (int row = 0; row < numRows; row++)
             {
-                for (int col = 0; col < decryptBlock[0].length; col++)
+                for (int col = 0; col < numCols; col++)
                 {
-                    if (decryptBlock[row][col].equals("A"))
-                    {
-                        if (col + 1 < decryptBlock[0].length)
-                        {
-                            if (!decryptBlock[row][col + 1].equals("A"))
-                            {
-                                decryptMessage += decryptBlock[row][col];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        decryptMessage += decryptBlock[row][col];
-                    }
+                    decryptMessage += decryptBlock[row][col];
                 }
             }
+
+            int p = 0;
+            int size = numRows * numCols;
+
+            while (decryptMessage.length() > 0)
+            {
+                String part = decryptMessage.substring(p, size);
+                int length = part.length();
+
+                while (part.substring(length - 1, length).equals("A") && length > 0)
+                {
+                    length--;
+                }
+                decrypted += part.substring(p, length);
+                decryptMessage = decryptMessage.substring(size, decryptMessage.length());
+            }
         }
-        return decryptMessage;
+        return decrypted;
     }
 
     public String superEncryptMessage(String message)
@@ -168,23 +183,23 @@ public class Encryptor {
             }
 
             // Shifts rows down by 1
-            String[] temp = letterBlock[letterBlock.length - 1];
-            for (int row = letterBlock.length - 1; row > 0; row--)
+            String[] temp = letterBlock[numRows - 1];
+            for (int row = numRows - 1; row > 0; row--)
             {
                 letterBlock[row] = letterBlock[row - 1];
             }
             letterBlock[0] = temp;
 
             //Shifts columns to the left by 1
-            String[] tempCol = new String[letterBlock.length];
-            for (int t = 0; t < letterBlock.length; t++)
+            String[] tempCol = new String[numRows];
+            for (int t = 0; t < numRows; t++)
             {
                 tempCol[t] = letterBlock[t][0];
             }
 
-            for (int row = 0; row < letterBlock.length; row++)
+            for (int row = 0; row < numRows; row++)
             {
-                for (int col = 1; col < letterBlock[0].length; col++)
+                for (int col = 1; col < numCols; col++)
                 {
                     letterBlock[row][col - 1] = letterBlock[row][col];
                 }
@@ -193,7 +208,7 @@ public class Encryptor {
             int r = 0;
             for (int t = 0; t < tempCol.length; t++)
             {
-                letterBlock[r][letterBlock[0].length - 1] = tempCol[t];
+                letterBlock[r][numCols - 1] = tempCol[t];
                 r++;
             }
 
@@ -205,12 +220,13 @@ public class Encryptor {
     public String superDecryptMessage(String message)
     {
         String decryptMessage = "";
+        String decrypted = "";
         for (int i = 0; i < message.length(); i += (numRows * numCols)) {
             String encryptPart = message.substring(i, i + (numRows * numCols));
             String[][] decryptBlock = new String[numRows][numCols];
             int j = 0;
-            for (int col = 0; col < decryptBlock[0].length; col++) {
-                for (int row = 0; row < decryptBlock.length; row++) {
+            for (int col = 0; col < numCols; col++) {
+                for (int row = 0; row < numRows; row++) {
                     decryptBlock[row][col] = encryptPart.substring(j, j + 1);
                     j++;
                 }
@@ -218,22 +234,22 @@ public class Encryptor {
 
             // Shifts rows up by 1
             String[] temp = decryptBlock[0];
-            for (int row = 1; row < decryptBlock.length; row++)
+            for (int row = 1; row < numRows; row++)
             {
                 decryptBlock[row - 1] = decryptBlock[row];
             }
-            decryptBlock[decryptBlock.length - 1] = temp;
+            decryptBlock[numRows - 1] = temp;
 
             // Shifts columns right by 1
-            String[] tempCol = new String[decryptBlock.length];
-            for (int t = 0; t < decryptBlock.length; t++)
+            String[] tempCol = new String[numRows];
+            for (int t = 0; t < numRows; t++)
             {
-                tempCol[t] = decryptBlock[t][decryptBlock[0].length - 1];
+                tempCol[t] = decryptBlock[t][numCols - 1];
             }
 
-            for (int row = 0; row < decryptBlock.length; row++)
+            for (int row = 0; row < numRows; row++)
             {
-                for (int col = decryptBlock[0].length - 2; col >= 0; col--)
+                for (int col = numCols - 2; col >= 0; col--)
                 {
                     decryptBlock[row][col + 1] = decryptBlock[row][col];
                 }
@@ -246,20 +262,30 @@ public class Encryptor {
                 r++;
             }
 
-            for (int row = 0; row < decryptBlock.length; row++) {
-                for (int col = 0; col < decryptBlock[0].length; col++) {
-                    if (decryptBlock[row][col].equals("A")) {
-                        if (col + 1 < decryptBlock[0].length) {
-                            if (!decryptBlock[row][col + 1].equals("A")) {
-                                decryptMessage += decryptBlock[row][col];
-                            }
-                        }
-                    } else {
-                        decryptMessage += decryptBlock[row][col];
-                    }
+            for (int row = 0; row < numRows; row++)
+            {
+                for (int col = 0; col < numCols; col++)
+                {
+                    decryptMessage += decryptBlock[row][col];
                 }
             }
+
+            int p = 0;
+            int size = numRows * numCols;
+
+            while (decryptMessage.length() > 0)
+            {
+                String part = decryptMessage.substring(p, size);
+                int length = part.length();
+
+                while (part.substring(length - 1, length).equals("A") && length > 0)
+                {
+                    length--;
+                }
+                decrypted += part.substring(p, length);
+                decryptMessage = decryptMessage.substring(size, decryptMessage.length());
+            }
         }
-        return decryptMessage;
+        return decrypted;
     }
 }

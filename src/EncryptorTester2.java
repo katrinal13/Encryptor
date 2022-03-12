@@ -27,9 +27,18 @@ public class EncryptorTester2 {
         System.out.println(tho.length());
 
         Encryptor encryptor10 = new Encryptor(6, 9);
-        String tho1 = "Ititwut t en’d’p gsrsosr i wtyavaea,bebry o,o, wu u he u th dtw ote oiuavirnrkonk seu ,t  rt haw hpenhPeu datAAAAA’AAAAAsAAAAA AAAAAoAAAAAuAAAAArAAAAAsAAAAAAAAAAA";
-        System.out.println(tho1.length());
-        System.out.println(encryptor10.decryptMessage("Ititwut t en’d’p gsrsosr i wtyavaea,bebry o,o, wu u he u th dtw ote oiuavirnrkonk seu ,t  rt haw hpenhPeu datAAAAA’AAAAAsAAAAA AAAAAoAAAAAuAAAAArAAAAAsAAAAAAAAAAA"));
+        System.out.println(encryptor10.decryptMessage("A n iectooo cowfnio n ,sra a  dllvtnilaihon wae gkstrwa le sybd I  e ttatebosrh e  eas fw thalit obynoaul.go  fefusga  nmetbtdat oh.l lde liiy T tt ghtstoreo lfo boiyeneue. ’ers bt,s Be  eaeeco,ncsaf ya r fwudeclaso wniiQIhssb.Na  l Tttie7R hm.5Ohip”  uno -TmksS Oa sE“ BT D kA.HAOeR OYNrRBU :sYESA  ”NENSo S GnnIO-Le NN Eath.PoBSe A AO CNrRNgaSeR’rm vYSoeUe  urPaBBna lEEd t NDREr  dO yftiOO’lhfMNsirf : poeA hpurNBaigeGannhnLrdg t  lRwysioR ewnsYble e llahtYaoti.ecwes lk r Bl,bscAo lao ll,cwyao k ecwy,blk e ll,blyao llecwyaolk ecwl,blk boklGalh oLrahawErc,n. yk d.O .b .Nw.ly :e.aeA aoclNBriw lnrnepo ogaiotr tckh.tekie hren Be dgmA h, iRse irRY)ee H  t le(Y’ii CesttpOa  tiNhsulcT,hpek’ a .sDlka  t oee haw ssen t i dohtnb neoklyen ,ae. t cl ghtklHoeakoC ,sepOO  s NFas oT notfAHdmhfIO ee NNp  aEEuht RYtonh tnteiHs hyse h    siaihsosnnaqm dtiuem ori og .riuareed agns bnl  oodehtft sehftr. e lo t telTalh,lhkie s loAAAsirAAAokaAAAmenAAAe tAAA d.AAAoeAAAAnoAAAA dAAAA"));
 
+        Encryptor encryptor11 = new Encryptor(3, 6);
+        System.out.println(encryptor11.decryptMessage("Iah  ewb aevn entry n Lobi ekosent e w eacvsae trTc oh irtseh aemlmy   te  stttrh aeTimon icIsa  uwmsiyel  l lst sra actvrheoe Silenaagnr dcf harwe iaadcnehd   TPo dkteéorm soutnnan  dpt ohTwaheter'sdA eAiAAnAAsAAiAA"));
+
+        Encryptor encryptor12 = new Encryptor(5, 3);
+        System.out.println(encryptor12.decryptMessage("(-t c-)’sh_Isu aad(T daT)s y_..AAAA.AAAAAAAAA"));
+
+        Encryptor encryptor13 = new Encryptor(2, 3);
+        System.out.println(encryptor13.superEncryptMessage("What?"));
+
+        Encryptor encryptor14 = new Encryptor(2, 3);
+        System.out.println(encryptor14.superDecryptMessage("?hAatW"));
     }
 }
